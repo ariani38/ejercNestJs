@@ -1,5 +1,6 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Ficha } from './model/Ficha';
 
 @Controller("saludos")
 export class AppController {
@@ -18,4 +19,13 @@ export class AppController {
     return this.appService.getHello()+" te llamas: "+nombre+" y tienes "+edad+" años";
   } 
 
+  @Get("ficha/:name")
+  getFicha(@Param("name") nombre:string):Ficha{
+    return new Ficha(nombre,77,"profe@gmail.com");
+  }
+
+ @Post("alta")
+ altaFicha(@Body() ficha:Ficha):void{
+  console.log(ficha.nombre+"-"+ficha.edad+"-"+ficha.email);
+ }
 }
