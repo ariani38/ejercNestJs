@@ -1,7 +1,12 @@
 export class Cuenta{
-    numeroCuenta:number;
+    numeroCuenta:string;
     saldo:number;
     titular: string;
     tipoCuenta: string;
-    constructor
+    constructor(numeroCuenta?:string, saldo?:number,titular?:string,tipoCuenta?:string){
+    this.numeroCuenta=numeroCuenta;
+    this.saldo=saldo;
+    this.titular=titular;
+    this.tipoCuenta=tipoCuenta;
+  }
 }
