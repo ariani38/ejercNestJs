@@ -24,7 +24,7 @@ export class ContactosController {
     if (resultado){
 response.status(200).send();
     }else{
-response.status(200).send();
+response.status(409).send();
     }
   }
   
