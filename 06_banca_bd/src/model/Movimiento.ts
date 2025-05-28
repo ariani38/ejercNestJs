@@ -6,7 +6,7 @@ export class Movimiento{
 @PrimaryGeneratedColumn()
 idMovimiento:number
 
-@Column({type:"datetime"})
+@Column()
 fecha:Date;
 @Column()
 cantidad: number;
@@ -19,10 +19,8 @@ operacion:string;
 cuenta:Cuenta;
 
 constructor(idMovimiento?:number,  cuenta?:Cuenta, fecha?:Date, cantidad?:number, operacion?:string){
-    this.idMovimiento = idMovimiento= idMovimiento || 0;
-    
+    this.idMovimiento = idMovimiento= idMovimiento || 0; 
     this.fecha = fecha  || new Date();
-
     this.cantidad = cantidad|| 0;
     this.operacion = operacion|| '';
     this.cuenta = cuenta|| null; 

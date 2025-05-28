@@ -33,7 +33,15 @@ export class MovimientosController {
 
   @Get('cuentasFechas')
   findCuentasByFecha(@Query ('fecha1') fecha1: Date,@Query('fecha2')fecha2:Date) {
-    return this.movimientosService.findByRange(fecha1,fecha2);
+    return this.movimientosService.findMovByFecha(fecha1,fecha2);
   }
-   
+   @Get('cuentasFechas/:saldoMin')
+  buscarPorSaldoMinimo(@Param ('saldoMin') saldoMin:number) {
+    return this.movimientosService.findMovBySaldo(saldoMin);
+  }
+@Get('buscarPorCantidad/:extrSup' )
+  buscarExtraccionSup(@Param('extrSup')extrSup:number){
+return this.movimientosService.FindByExtraccion(extrSup);
+  }
+  
 }
