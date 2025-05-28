@@ -31,6 +31,9 @@ export class MovimientosController {
     return this.movimientosService.findByRange(fecha1,fecha2);
   }
 
-  
+  @Get('cuentasFechas')
+  findCuentasByFecha(@Query ('fecha1') fecha1: Date,@Query('fecha2')fecha2:Date) {
+    return this.movimientosService.findByRange(fecha1,fecha2);
+  }
    
 }
