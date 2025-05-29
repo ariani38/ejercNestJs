@@ -1,3 +1,4 @@
+
 import {
   Body,
   Controller,
@@ -6,37 +7,37 @@ import {
   Param,
   Patch,
   Post,
+  Res,
 } from '@nestjs/common';
-import { CreateCuentasDto } from './dto/create-cuentas.dto';
-import { UpdateCuentasDto } from './dto/update-cuentas.dto';
-import { CuentasService } from './cuentas.service';
+import { CuentasService } from 'src/service/cuentas.service';
+ import {Response } from 'express';
+import { Cuenta } from 'src/model/Cuenta';
+ 
 
-@Controller('cuentass')
+@Controller('cuentas')
 export class CuentasController {
   constructor(private readonly cuentasService: CuentasService) {}
 
-  @Post()
-  create(@Body() createCuentasDto: CreateCuentasDto) {
-    return this.cuentasService.create(createCuentasDto);
-  }
 
-  @Get()
-  findAll() {
-    return this.cuentasService.findAll();
-  }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cuentasService.findOne(+id);
-  }
+//endpoint que a partir del dni del cliente devuelva sus cuentas.
+//si ese cliente no exsite o no tiene cuentas, que envíe un 409
+@Get('buscarPorDni/:dni')
+async buscarPorDni(@Param("dni")dni:number, @Res() response:Response){
+const result:Cuenta[]= await this.cuentasService.findByDni(dni);
+if (result.length>0){
+response.status(200).json(result);
+}else{
+response.status(409).json([]);
+}
+}
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCuentasDto: UpdateCuentasDto) {
-    return this.cuentasService.update(+id, updateCuentasDto);
-  }
+@Post('alta')
+altaCuenta(@Body()datos:any){
+ const  cuenta:Cuenta=datos.cuenta;
+ const dnis: number []=datos.dnis;
+ this.cuentasService.altaCuenta(cuenta,dnis);
+}
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.cuentasService.remove(+id);
-  }
+
 }
